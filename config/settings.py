@@ -162,7 +162,7 @@ MEDIA_ROOT = str(
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SITE_ID = 1
-CSRF_TRUSTED_ORIGINS = ['https://science-blog-production.up.railway.app','https://www.ravshanenergy.uz','https://ravshanenergy.uz']
+CSRF_TRUSTED_ORIGINS = ['https://my-blog-production-3192.up.railway.app','https://www.ravshanenergy.uz','https://ravshanenergy.uz']
 OPENAI_API_KEY = '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'
 
 BLOG = 'blog.Blog'
