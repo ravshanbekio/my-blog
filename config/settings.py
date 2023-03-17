@@ -31,7 +31,7 @@ SECRET_KEY = env.str("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ["www.ravshanenergy.uz","science-blog-production.up.railway.app","ravshanenergy.uz","127.0.0.1"]
+ALLOWED_HOSTS = ["www.ravshanenergy.uz","my-blog-production-3192.up.railway.app","ravshanenergy.uz","127.0.0.1"]
 
 
 # Application definition
