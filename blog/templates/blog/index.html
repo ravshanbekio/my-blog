@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block meta %}
+<meta name="description" content="">
+<meta name="author" content="Ravshanbek Madaminov">
+{% endblock meta %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+    
+<!-- Begin Site Title
+================================================== -->
+<div class="container">
+	<div class="mainheading">
+		<h1 class="sitetitle">Ravshanbek's Blog</h1>
+		<p class="lead">
+			{% blocktrans %}Tips, instructions and video tutorials for dreamers{% endblocktrans %}
+		</p>
+	</div>
+<!-- End Site Title
+================================================== -->
+
+	<!-- Begin List Posts
+	================================================== -->
+	<section class="recent-posts">
+		<div class="section-title">
+			<h2><span>{% blocktrans %}All Stories{% endblocktrans %}</span></h2>
+		</div>
+		<div class="card-columns listrecent">
+			{% for blog in blogs %}
+				<!-- begin post -->
+				<div class="card">
+					<a href="{% url 'blog:blog-detail' blog.slug %}">
+						<img class="img-fluid" src="{{ blog.preview_image.url }}" alt="">
+					</a>
+					<div class="card-block">
+						<h2 class="card-title"><a href="{% url 'blog:blog-detail' blog.slug %}">{{ blog.title }}</a></h2>
+						<h4 class="card-text">{{ blog.subtitle }}</h4>
+						<div class="metafooter">
+							<div class="wrapfooter">
+								<span class="meta-footer-thumb">
+								</span>
+								<span class="author-meta">
+								<span class="post-date">{{ blog.added_date }}</span><span class="dot"></span><span class="post-read">{{ blog.estimated_read_time }} min read</span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end post -->
+			{% endfor %}
+
+		</div>
+	</section>
+	<!-- End List Posts
+	================================================== -->
+
+	<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+
+				{% if blogs.has_previous %}
+					<li><a href="?page={{blogs.previous_page_number}}" class="btn page-link"
+							data-page="{{blogs.previous_page_number}}">&#10094; {% blocktrans %}Prev{% endblocktrans %}</a></li>
+				{% endif %}
+
+
+				{% for page in custom_range %}
+
+					{% if page == blogs.number%}
+					<li><a href="?page={{page}}" class="btn page-link btn--sub" data-page="{{page}}">{{page}}</a></li>
+					{% else %}
+					<li><a href="?page={{page}}" class="btn page-link" data-page="{{page}}">{{page}}</a></li>
+					{% endif %}
+				{% endfor %}
+
+				{% if blogs.has_next %}
+					<li><a href="?page={{blogs.next_page_number}}" class="btn page-link"
+							data-page="{{blogs.next_page_number}}">{% blocktrans %}Next{% endblocktrans %} &#10095;</a></li>
+				{% endif %}
+
+			</ul>
+	</nav>
+	
+
+{% endblock content %}

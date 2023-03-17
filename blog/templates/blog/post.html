@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load social_share %}
+
+{% block title %}
+<title>{{ blog.title }}</title>
+{% endblock title %}
+
+{% block meta %}
+<meta name="description" content="{{ blog.meta_description }}">
+<meta name="author" content="Ravshanbek Madaminov">
+{% endblock meta %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+<!-- Begin Article
+================================================== -->
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-2 col-xs-12">
+			<div class="share">
+				<p>
+					Share
+				</p>
+				<ul>
+					<li>
+						{% post_to_facebook object_or_url "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z'/></svg>" %}
+					</li>
+					<li>
+						{% post_to_twitter "Useful blog: {{ object.title }}. Check it out!" object_or_url "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z'/></svg>" %}
+					</li>
+					<li>
+						{% post_to_telegram "Useful blog: {{ object.title }}. Check it out!" object_or_url "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 496 512'><path d='M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z'/></svg>" %}
+					</li>
+				</ul>
+				<div class="sep">
+				</div>
+				<ul>
+					<li>
+					<a href="#comments">
+					42<br/>
+					<svg class="svgIcon-use" width="29" height="29" viewbox="0 0 29 29"><path d="M21.27 20.058c1.89-1.826 2.754-4.17 2.754-6.674C24.024 8.21 19.67 4 14.1 4 8.53 4 4 8.21 4 13.384c0 5.175 4.53 9.385 10.1 9.385 1.007 0 2-.14 2.95-.41.285.25.592.49.918.7 1.306.87 2.716 1.31 4.19 1.31.276-.01.494-.14.6-.36a.625.625 0 0 0-.052-.65c-.61-.84-1.042-1.71-1.282-2.58a5.417 5.417 0 0 1-.154-.75zm-3.85 1.324l-.083-.28-.388.12a9.72 9.72 0 0 1-2.85.424c-4.96 0-8.99-3.706-8.99-8.262 0-4.556 4.03-8.263 8.99-8.263 4.95 0 8.77 3.71 8.77 8.27 0 2.25-.75 4.35-2.5 5.92l-.24.21v.32c0 .07 0 .19.02.37.03.29.1.6.19.92.19.7.49 1.4.89 2.08-.93-.14-1.83-.49-2.67-1.06-.34-.22-.88-.48-1.16-.74z"></path></svg>
+					</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- End Fixed Left Share -->
+
+		<!-- Begin Post -->
+		<div class="col-md-8 col-md-offset-2 col-xs-12">
+			<div class="mainheading">
+				<h1 class="posttitle">{{ blog.title }}</h1>
+				<p class="text-secondary">{% blocktrans %}Posted on {% endblocktrans %} {{ blog.added_date }}</p>
+			</div>
+
+			<!-- Begin Featured Image -->
+			<img class="featured-image img-fluid" src="{{ blog.preview_image.url }}" alt="">
+			<!-- End Featured Image -->
+
+			<!-- Begin Post Content -->
+			<div class="article-post">
+				{{ blog.body|safe|linebreaks }}
+			</div>
+			<!-- End Post Content -->
+
+			<!-- Begin Tags -->
+			<div class="after-post-tags">
+				<ul class="tags">
+					{% for category in blog.category.all %}
+						<li><a href="#">{{ category.name }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+			<!-- End Tags -->
+
+		</div>
+		<!-- End Post -->
+
+	</div>
+</div>
+<!-- End Article
+================================================== -->
+
+<div class="hideshare"></div>
+
+<!-- Begin Related
+================================================== -->
+<div class="graybg">
+	<div class="container">
+		<h3>{% blocktrans %}Related{% endblocktrans %}</h3>
+		<div class="row listrecent listrelated">
+            {% for blog in blogs %}
+                <!-- begin post -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <a href="{% url 'blog:blog-detail' blog.slug %}">
+                        <img class="img-fluid img-thumb" src="{{ blog.preview_image.url }}" alt="">
+                        </a>
+                        <div class="card-block">
+                            <h2 class="card-title"><a href="{% url 'blog:blog-detail' blog.slug %}">{{ blog.title }}</a></h2>
+                            <div class="metafooter">
+                                <div class="wrapfooter">
+                                    <span class="meta-footer-thumb">
+                                    </span>
+                                    <span class="author-meta">
+                                    <span class="post-date">{{ blog.added_date }}</span><span class="dot"></span><span class="post-read">{{ blog.estimated_read_time }} min read</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end post -->
+            {% endfor %}
+		</div>
+	</div>
+</div>
+<!-- End Related Posts
+================================================== -->
+
+<!-- Begin AlertBar
+================================================== -->
+<!-- <div class="alertbar">
+	<div class="container text-center">
+		<img src="assets/img/logo.png" alt=""> &nbsp; Never miss a <b>story</b> from us, get weekly updates in your inbox. <a href="#" class="btn subscribe">Get Updates</a>
+	</div>
+</div> -->
+<!-- End AlertBar
+================================================== -->
+
+{% endblock content %}
