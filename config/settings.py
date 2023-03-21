@@ -171,6 +171,6 @@ cloudinary.config(
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SITE_ID = 1
 CSRF_TRUSTED_ORIGINS = ['https://my-blog-production-3192.up.railway.app','https://www.ravshanenergy.uz','https://ravshanenergy.uz']
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = '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'
 
 BLOG = 'blog.Blog'

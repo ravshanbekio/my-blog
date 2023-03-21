@@ -7,4 +7,4 @@ class CategoryTranslationOption(TranslationOptions):
 
 @register(Blog)
 class BlogTranslationOption(TranslationOptions):
-    fields = ('title','subtitle','body','meta_description',)
+    fields = ('title','subtitle','body','meta_description','meta_keyword',)

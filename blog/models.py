@@ -17,13 +17,14 @@ class Category(models.Model):
         return self.name
 
 class Blog(models.Model):
-    title = models.CharField(max_length=120)
-    subtitle = models.CharField(max_length=70)
-    slug = models.SlugField(blank=True, null=True)
+    title = models.CharField(max_length=200)
+    subtitle = models.CharField(max_length=100)
+    slug = models.SlugField(blank=True, null=True, max_length=200)
     body = RichTextField(blank=True)
     preview_image = CloudinaryField()
     category = models.ManyToManyField(Category, related_name='blogs')
-    meta_description = models.CharField(max_length=150)
+    meta_description = models.CharField(max_length=160)
+    meta_keyword = models.TextField()
     views = models.IntegerField(default=0)
     added_date = models.DateField(auto_now_add=True)
     estimated_read_time = models.IntegerField(default=2)
