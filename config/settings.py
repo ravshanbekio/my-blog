@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from environs import Env
 from django.utils.translation import gettext_lazy as _
+import dj_database_url
 
 # #Environment variables
 env = Env()
@@ -92,12 +93,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-
+DATABASE_URL = env.dj_db_url("DATABASE_URL")
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
 }
 
 
@@ -163,6 +161,6 @@ MEDIA_ROOT = str(
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SITE_ID = 1
 CSRF_TRUSTED_ORIGINS = ['https://my-blog-production-3192.up.railway.app','https://www.ravshanenergy.uz','https://ravshanenergy.uz']
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = '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'
 
 BLOG = 'blog.Blog'
