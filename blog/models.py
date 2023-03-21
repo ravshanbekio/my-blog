@@ -3,6 +3,7 @@ from ckeditor.fields import RichTextField
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.utils.text import slugify
+from cloudinary.models import CloudinaryField
 from .signals import add_gpt_response
 
 class Category(models.Model):
@@ -20,7 +21,7 @@ class Blog(models.Model):
     subtitle = models.CharField(max_length=70)
     slug = models.SlugField(blank=True, null=True)
     body = RichTextField(blank=True)
-    preview_image = models.FileField()
+    preview_image = CloudinaryField()
     category = models.ManyToManyField(Category, related_name='blogs')
     meta_description = models.CharField(max_length=150)
     views = models.IntegerField(default=0)

@@ -15,6 +15,10 @@ from environs import Env
 from django.utils.translation import gettext_lazy as _
 import dj_database_url
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 # #Environment variables
 env = Env()
 env.read_env()
@@ -155,12 +159,18 @@ MEDIA_ROOT = str(
         BASE_DIR / 'media'
     )
 
+cloudinary.config( 
+  cloud_name = "uzravshanenergy", 
+  api_key = "456822187743137", 
+  api_secret = "_QRnYx2_zfQwudiFpWAeruNP1QE" 
+)
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SITE_ID = 1
 CSRF_TRUSTED_ORIGINS = ['https://my-blog-production-3192.up.railway.app','https://www.ravshanenergy.uz','https://ravshanenergy.uz']
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = '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'
 
 BLOG = 'blog.Blog'
