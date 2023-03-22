@@ -21,8 +21,11 @@ class IndexView(View):
 class BlogDetailView(View):
     def get(self, request, slug):
         blog = Blog.objects.get(slug=slug)
-        blog.views += 1
-        blog.save()
+        if request.user.is_authenticated==False:
+            blog.views += 1
+            blog.save()
+        else:
+            pass
         blogs = Blog.objects.filter(category__name=blog.category.first()).exclude(slug=blog.slug)[:3]
         context = {
             'blog':blog,
