@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'captcha',
     #internal apps
     'account.apps.AccountConfig',
+    'academy.apps.AcademyConfig',
     'blog.apps.BlogConfig',
 ]
 

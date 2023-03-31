@@ -32,6 +32,7 @@ urlpatterns = [
     # path('manage/admin/',MyAdminSite.get_urls),
     path('manage/admin/',admin.site.urls),
     path('accounts/',include('account.urls')),
+    path('academy/',include('academy.urls')),
 ] + i18n_patterns(
     path('i18n/',include('django.conf.urls.i18n')),
     path('',include('blog.urls'), name=settings.LANGUAGES),
