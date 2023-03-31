@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 from .models import Blog, Category
@@ -27,12 +27,27 @@ class BlogDetailView(View):
         else:
             pass
         blogs = Blog.objects.filter(category__name=blog.category.first()).exclude(slug=blog.slug)[:3]
+        
         context = {
             'blog':blog,
-            'blogs':blogs
+            'number_of_likes':blog.number_of_likes,
+            'blogs':blogs,
+            'likes_number':blog.likes.count(),
+            'likes':blog.likes
         }
 
         return render(request, 'blog/post.html', context)
+
+    def post(self, request, slug):
+        blog = Blog.objects.get(slug=slug)
+
+        if blog.likes.filter(id=request.user.id).exists():
+            blog.likes.remove(request.user.id)
+        else:
+            blog.likes.add(request.user.id)
+        
+        return redirect('blog:blog-detail',slug=slug)
+
     
 class AuthorView(View):
     def get(self, request):

@@ -3,6 +3,7 @@ from ckeditor.fields import RichTextField
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 from .signals import add_gpt_response
 
@@ -26,6 +27,7 @@ class Blog(models.Model):
     meta_description = models.CharField(max_length=160)
     meta_keyword = models.TextField()
     views = models.IntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name='post_likes')
     added_date = models.DateField(auto_now_add=True)
     estimated_read_time = models.IntegerField(default=2)
 
@@ -34,6 +36,9 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def number_of_likes(self):
+        return self.likes.count()
     
 @receiver(post_save, sender=Category)
 def post_save_category(instance, *args, **kwargs):

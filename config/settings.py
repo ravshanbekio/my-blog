@@ -51,11 +51,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites', 
     'django.contrib.sitemaps',
-
+    #external apps
     'modeltranslation',
     'ckeditor',
     'django_social_share',
-
+    'captcha',
+    #internal apps
+    'account.apps.AccountConfig',
     'blog.apps.BlogConfig',
 ]
 
@@ -99,8 +101,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASE_URL = env.dj_db_url("DATABASE_URL")
 DATABASES = {
-    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+# DATABASES = {
+#     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+# }
 
 
 # Password validation
@@ -169,8 +177,14 @@ cloudinary.config(
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 SITE_ID = 1
 CSRF_TRUSTED_ORIGINS = ['https://my-blog-production-3192.up.railway.app','https://www.ravshanenergy.uz','https://ravshanenergy.uz']
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = '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'
 
 BLOG = 'blog.Blog'
+
+# Google recaptcha settings
+RECAPTCHA_PUBLIC_KEY = '6LeddiUgAAAAANactQQjvFKpe8df8cNrRPAExi-w'
+RECAPTCHA_PRIVATE_KEY = '6LeddiUgAAAAAKENuSA6u-lzljFh6eOArtPX9fxG'
+RECAPTCHA_REQUIRED_SCORE = 0.85
