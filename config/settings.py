@@ -212,7 +212,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SITE_ID = 1
 CSRF_TRUSTED_ORIGINS = ['https://my-blog-production-3192.up.railway.app','https://www.ravshanenergy.uz','https://ravshanenergy.uz']
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = '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'
 
 BLOG = 'blog.Blog'
 
