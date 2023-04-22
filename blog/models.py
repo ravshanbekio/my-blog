@@ -5,7 +5,9 @@ from django.db.models.signals import post_save
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from cloudinary import CloudinaryImage
 from .signals import add_gpt_response
+import re
 
 class Category(models.Model):
     name = models.CharField(max_length=25)
@@ -36,6 +38,12 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        super(Blog,self).save(*args, **kwargs)
+
+        self.preview_image = CloudinaryImage(str(self.preview_image)).image(height=200, width=150, crop="lfill")
+        print(self.preview_image)
     
     def number_of_likes(self):
         return self.likes.count()

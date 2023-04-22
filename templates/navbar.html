@@ -17,6 +17,12 @@
                 <li class="nav-item active">
                 <a class="nav-link" href="{% url 'blog:index' %}">{% blocktrans %}Stories{% endblocktrans %}</a>
                 </li>
+                <li class="nav-item active">
+                <a class="nav-link" href="{% url 'academy:dashboard' %}">{% blocktrans %}Academy{% endblocktrans %}</a>
+                </li>
+                <li class="nav-item active">
+                <a class="nav-link" href="{% url 'portfolio:dashboard' %}">{% blocktrans %}Portfolio{% endblocktrans %}</a>
+                </li>
             </ul>
             <!-- End Menu -->
             <form action="{% url 'set_language' %}" method="post">{% csrf_token %}

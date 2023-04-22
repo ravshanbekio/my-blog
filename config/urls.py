@@ -7,6 +7,7 @@ from django.contrib.sitemaps.views import sitemap
 from blog.sitemap import BlogSitemap, CategorySitemap
 from django.contrib.admin.sites import AdminSite
 from django.shortcuts import redirect
+from .views import PrivacyPolicyView
 
 # class MyAdminSite(AdminSite):
 
@@ -31,9 +32,11 @@ sitemaps = {
 urlpatterns = [
     # path('manage/admin/',MyAdminSite.get_urls),
     path('manage/admin/',admin.site.urls),
-    path('auth/',include('profile.urls')),
-    path('accounts/', include('allauth.urls')),
     path('academy/',include('academy.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('portfolio/',include('portfolio.urls')),
+    path('auth/',include('profile.urls')),
+    path('privacy-policy/',PrivacyPolicyView.as_view(),name='privacy'),
 ] + i18n_patterns(
     path('i18n/',include('django.conf.urls.i18n')),
     path('',include('blog.urls'), name=settings.LANGUAGES),

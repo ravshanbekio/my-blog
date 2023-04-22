@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% include 'navbar.html' %}
+{% block title %}
+<title>Category Details</title>
+{% endblock title %}
+
+{% block content %}
+    {% for course in category.category_relation.all %}
+        <a href="{% url 'academy:course-detail' course.slug %}">{{ course.main_title }}</a>
+    {% endfor %}
+{% endblock content %}
