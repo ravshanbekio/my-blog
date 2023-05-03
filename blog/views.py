@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from django.http import HttpResponse
 
 from .models import Blog, Category
 from .utils import searchBlogs, paginateBlogs
@@ -16,7 +17,12 @@ class IndexView(View):
             'search_query':search_query,
             'custom_range':custom_range,
         }
-        return render(request, 'blog/index.html', context)
+        response = render(request, 'blog/index.html', context)
+        if request.user.is_authenticated:
+            response.set_cookie(request.user.username,f'Bu {request.user.username} nomli foydalanuvchi')
+        else:
+            return redirect('signin')
+        return response
      
 class BlogDetailView(View):
     def get(self, request, slug):
@@ -35,7 +41,9 @@ class BlogDetailView(View):
             'likes_number':blog.likes.count(),
             'likes':blog.likes
         }
-
+        if request.session.test_cookie_worked():
+            print("Test cookie also worked")
+            request.session.delete_test_cookie()
         return render(request, 'blog/post.html', context)
 
     def post(self, request, slug):
@@ -47,13 +55,3 @@ class BlogDetailView(View):
             blog.likes.add(request.user.id)
         
         return redirect('blog:blog-detail',slug=slug)
-
-    
-class AuthorView(View):
-    def get(self, request):
-        return render(request, 'blog/author.html')
-    
-# class FilterCategoriesView(View):
-#     def get(self, request, category):
-#         query_categories = Category.objects.filter()
-#         return render(request, 'category-navbar.html')

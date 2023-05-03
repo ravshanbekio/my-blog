@@ -109,7 +109,9 @@ https://www.tooplate.com/view/2115-marvel
                         {% for project in projects %}
                           <div class="item">
                             <div class="project-info">  
-                              <img src="{{ project.preview_photo.url }}" class="img-responsive" alt="project image">
+                              <a href="{% url 'portfolio:project-detail' project.name %}">
+                                <img src="{{ project.preview_photo.url }}" class="img-responsive" alt="project image">
+                              </a>
                             </div>
                           </div>
                         {% endfor %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
+from datetime import datetime
 
 from .forms import RegisterUserForm
 
@@ -31,9 +32,10 @@ class RegisterView(View):
 
 class LoginView(View):
     def get(self, request):
-        if request.user.is_authenticated:
+        response = render(request, 'auth/login.html')
+        if request.user.username in request.COOKIES:
             return redirect('blog:index')
-        return render(request, 'auth/login.html')
+        return response
     
     def post(self, request):
         username = request.POST['username']

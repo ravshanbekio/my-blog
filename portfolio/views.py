@@ -15,3 +15,13 @@ class DashboardView(View):
             'educations':education
         }
         return render(request, 'portfolio/index.html',context)
+    
+class ProjectDetailView(View):
+    def get(self, request, name):
+
+        project = Project.objects.get(name=name)
+        context = {
+            'project':project
+        }
+
+        return render(request, 'portfolio/project-detail.html', context)
