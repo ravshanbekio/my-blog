@@ -7,20 +7,8 @@ from django.db.models.signals import pre_save
 from django.utils.text import slugify
 import random
 
-
-class Category(models.Model):
-    name = models.CharField(max_length=40)
-    slug = models.SlugField(max_length=100, blank=True)
-    photo = CloudinaryField()
-
-    class Meta:
-        verbose_name_plural = "Category"
-
-    def __str__(self):
-        return self.name
     
 class Course(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category_relation')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='course_owner')
     main_title = models.CharField(max_length=200)
     about_course = models.TextField(max_length=800)
@@ -35,7 +23,7 @@ class Course(models.Model):
             return self.main_title
     
 class CourseMaterials(models.Model):
-    playlist = models.ForeignKey(Course, on_delete=models.CASCADE)
+    playlist = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="materials")
     title = models.CharField(max_length=200)
     text = RichTextField()
     video = CloudinaryField(blank=True)
@@ -51,12 +39,6 @@ class CourseMaterials(models.Model):
     def __str__(self):
         return self.title
     
-@receiver(pre_save, sender=Category)
-def add_category_slug(instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = slugify(instance.name)
-        instance.save()
-
 @receiver(pre_save, sender=Course)
 def add_course_slug(instance, *args, **kwargs):
     if not instance.slug:

@@ -31,10 +31,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str("SECRET_KEY")  
+# SECRET_KEY = env.str("SECRET_KEY")  
+SECRET_KEY = "django-insecure-exu!5"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DEBUG", default=False)
+# DEBUG = env.bool("DEBUG", default=False)
+DEBUG = True
 
 ALLOWED_HOSTS = ["www.ravshanenergy.uz","my-blog-production-3192.up.railway.app","ravshanenergy.uz","127.0.0.1"]
 
@@ -132,16 +134,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASE_URL = env.dj_db_url("DATABASE_URL")
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+# DATABASE_URL = env.dj_db_url("DATABASE_URL")
 DATABASES = {
-    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+# DATABASES = {
+#     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+# }
 
 
 # Password validation
@@ -221,3 +223,7 @@ BLOG = 'blog.Blog'
 RECAPTCHA_PUBLIC_KEY = '6LeddiUgAAAAANactQQjvFKpe8df8cNrRPAExi-w'
 RECAPTCHA_PRIVATE_KEY = '6LeddiUgAAAAAKENuSA6u-lzljFh6eOArtPX9fxG'
 RECAPTCHA_REQUIRED_SCORE = 0.85
+
+#Celery settings
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'

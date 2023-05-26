@@ -6,7 +6,7 @@
 {% endblock title %}
 
 {% block content %}
-    {% for course in category.category_relation.all %}
+    {% for course in courses %}
         <a href="{% url 'academy:course-detail' course.slug %}">{{ course.main_title }}</a>
     {% endfor %}
 {% endblock content %}

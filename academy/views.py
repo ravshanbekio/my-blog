@@ -1,37 +1,34 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import Category, Course, CourseMaterials
+from .models import Course, CourseMaterials
+from .tasks import add_students_to_list_task
 
-class DashboardView(View):
+
+class AllCoursesView(View):
     def get(self, request):
-        categories = Category.objects.select_related()
-
+        courses = Course.objects.select_related()
         context = {
-            'categories':categories
-        }
-        return render(request, 'academy/category.html', context)
-
-class CategoryDetailView(View):
-    def get(self, request, slug):
-        category = Category.objects.get(slug=slug)
-        context = {
-            'category':category
+            'courses':courses
         }
         return render(request, 'academy/category-detail.html', context)
     
 class CourseDetailView(View):
     def get(self, request, slug):
         course = Course.objects.get(slug=slug)
+        materials = CourseMaterials.objects.filter(playlist__slug=course.slug).first()
+        if request.user in course.students.all():
+            return redirect('academy:learn-course',slug=course.slug, random_number=materials.random_number)
         context = {
-            'course':course
+            'course':course,
         }
         return render(request, 'academy/course-detail.html', context)
     
     def post(self, request, slug):
         course = Course.objects.get(slug=slug)
         materials = CourseMaterials.objects.filter(playlist__slug=course.slug).first()
-        course.students.add(request.user)
-        course.save()
+        add_students_to_list_task.delay(
+            user=request.user.id, slug=slug
+        )
         return redirect('academy:learn-course',slug=slug, random_number=materials.random_number)
 
 class CourseMaterialsView(View):
