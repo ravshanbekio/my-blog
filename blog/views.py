@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.http import HttpResponse
 
 from .models import Blog, Category
 from .utils import searchBlogs, paginateBlogs
+from .tasks import add_like_to_blog_task
 
 class IndexView(View):
     def get(self, request):
@@ -55,11 +55,8 @@ class BlogDetailView(View):
         return render(request, 'blog/post.html', context)
 
     def post(self, request, slug):
-        blog = Blog.objects.get(slug=slug)
-
-        if blog.likes.filter(id=request.user.id).exists():
-            blog.likes.remove(request.user.id)
-        else:
-            blog.likes.add(request.user.id)
+        add_like_to_blog_task.delay(
+            user=request.user.id, slug=slug
+        )
         
         return redirect('blog:blog-detail',slug=slug)
