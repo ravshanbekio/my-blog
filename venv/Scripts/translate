@@ -1,4 +1,4 @@
-#!C:\PROJECTS\Backend\Science blog\venv\Scripts\python.exe
+#!C:\PROJECTS\Backend\my-blog\venv\Scripts\python.exe
 # -*- coding: utf-8 -*-
 import argparse
 import sys

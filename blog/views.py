@@ -7,43 +7,51 @@ from .utils import searchBlogs, paginateBlogs
 
 class IndexView(View):
     def get(self, request):
-        blogs, search_query = searchBlogs(request)
-        categories_query = Category.objects.all()
-        # paginate blogs
-        custom_range, blogs = paginateBlogs(request, blogs, 12)
-        context = {
-            'categories':categories_query,
-            'blogs':blogs,
-            'search_query':search_query,
-            'custom_range':custom_range,
-        }
-        response = render(request, 'blog/index.html', context)
         if request.user.is_authenticated:
-            response.set_cookie(request.user.username,f'Bu {request.user.username} nomli foydalanuvchi')
+            request.session['user'] = f'{request.user.username} is authenticated!'
+            blogs, search_query = searchBlogs(request)
+            categories_query = Category.objects.all()
+            # paginate blogs
+            custom_range, blogs = paginateBlogs(request, blogs, 12)
+            context = {
+                'categories':categories_query,
+                'blogs':blogs,
+                'search_query':search_query,
+                'custom_range':custom_range,
+            }
         else:
             return redirect('signin')
-        return response
+        return render(request, 'blog/index.html', context)
+        # if request.user.is_authenticated:
+        #     response.set_cookie(request.user.username,f'Bu {request.user.username} nomli foydalanuvchi')
+        # else:
+        #     return redirect('signin')
+        # return response
      
 class BlogDetailView(View):
     def get(self, request, slug):
-        blog = Blog.objects.get(slug=slug)
-        if request.user.is_authenticated==False:
-            blog.views += 1
-            blog.save()
-        else:
-            pass
-        blogs = Blog.objects.filter(category__name=blog.category.first()).exclude(slug=blog.slug)[:3]
+        if request.session.get('user'):
+            blog = Blog.objects.get(slug=slug)
+            if request.user.is_authenticated==False:
+                blog.views += 1
+                blog.save()
+            else:
+                pass
+            blogs = Blog.objects.filter(category__name=blog.category.first()).exclude(slug=blog.slug)[:3]
+            
+            context = {
+                'blog':blog,
+                'number_of_likes':blog.number_of_likes,
+                'blogs':blogs,
+                'likes_number':blog.likes.count(),
+                'likes':blog.likes
+            }
         
-        context = {
-            'blog':blog,
-            'number_of_likes':blog.number_of_likes,
-            'blogs':blogs,
-            'likes_number':blog.likes.count(),
-            'likes':blog.likes
-        }
-        if request.session.test_cookie_worked():
-            print("Test cookie also worked")
-            request.session.delete_test_cookie()
+            if request.session.test_cookie_worked():
+                print("Test cookie also worked")
+                request.session.delete_test_cookie()
+        else:
+            return redirect('signin')
         return render(request, 'blog/post.html', context)
 
     def post(self, request, slug):
