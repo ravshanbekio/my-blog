@@ -1,0 +1,16 @@
+name: my-django-app
+env: python=3.11.3
+services:
+  - name: web
+    type: http
+    port: 8000
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
+  - name: worker
+    type: worker
+    command: celery -A config worker --loglevel=info
+  - name: beat
+    type: job
+    command: celery -A config beat --loglevel=info
+addons:
+  - name: redis
+    plan: redis
