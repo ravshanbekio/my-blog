@@ -227,3 +227,11 @@ RECAPTCHA_REQUIRED_SCORE = 0.85
 #Celery settings
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+#Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ravshanbekmadaminov68@gmail.com'
+EMAIL_HOST_PASSWORD = 'nxioznbysdtwfeat'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587

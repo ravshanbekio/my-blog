@@ -3,7 +3,7 @@ from django.views import View
 
 from .models import Blog, Category
 from .utils import searchBlogs, paginateBlogs
-from .tasks import add_like_to_blog_task
+from .tasks import add_like_to_blog_task, send_email_task
 
 class IndexView(View):
     def get(self, request):
@@ -11,8 +11,10 @@ class IndexView(View):
             request.session['user'] = f'{request.user.username} is authenticated!'
             blogs, search_query = searchBlogs(request)
             categories_query = Category.objects.all()
+            send_email_task("You have successfully registered Ravshanenergy.uz","Hi, Congrats! You have successfully registered Ravshanenergy.uz","ravshanbekmadaminov68@gmail.com",[request.user.email])
             # paginate blogs
             custom_range, blogs = paginateBlogs(request, blogs, 12)
+            
             context = {
                 'categories':categories_query,
                 'blogs':blogs,
