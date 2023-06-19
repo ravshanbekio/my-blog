@@ -9,9 +9,12 @@ class IndexView(View):
     def get(self, request):
         if request.user.is_authenticated:
             request.session['user'] = f'{request.user.username} is authenticated!'
+            request.session['visit_count'] += 1
             blogs, search_query = searchBlogs(request)
             categories_query = Category.objects.all()
-            send_email_task("You have successfully registered Ravshanenergy.uz","Hi, Congrats! You have successfully registered Ravshanenergy.uz","ravshanbekmadaminov68@gmail.com",[request.user.email])
+            print(request.session.get('visit_count'))
+            if request.session.get('visit_count') == 1:
+                send_email_task("You have successfully registered Ravshanenergy.uz","Hi, Congrats! You have successfully registered Ravshanenergy.uz","ravshanbekmadaminov68@gmail.com",[request.user.email])
             # paginate blogs
             custom_range, blogs = paginateBlogs(request, blogs, 12)
             
