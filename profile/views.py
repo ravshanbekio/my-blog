@@ -25,8 +25,9 @@ class RegisterView(View):
             password = form.cleaned_data['password1']
             form.save()
             user = authenticate(request, username=username, password=password)
+            visit_count = request.session['visit_count']
+            visit_count == 0
             login(request, user)
-            request.session['visit_count'] = 0
             return redirect('blog:index')
         else:
             return redirect('signup')  
