@@ -3,18 +3,13 @@ from django.views import View
 
 from .models import Blog, Category
 from .utils import searchBlogs, paginateBlogs
-from .tasks import add_like_to_blog_task, send_email_task
+from .tasks import add_like_to_blog_task
 
 class IndexView(View):
     def get(self, request):
         if request.user.is_authenticated:
-            request.session['user'] = f'{request.user.username} is authenticated!'
-            request.session['visit_count'] += 1
             blogs, search_query = searchBlogs(request)
-            categories_query = Category.objects.all()
-            print(request.session.get('visit_count'))
-            if request.session.get('visit_count') == 1:
-                send_email_task("You have successfully registered Ravshanenergy.uz","Hi, Congrats! You have successfully registered Ravshanenergy.uz","ravshanbekmadaminov68@gmail.com",[request.user.email])
+            categories_query = Category.objects.select_related()
             # paginate blogs
             custom_range, blogs = paginateBlogs(request, blogs, 12)
             
@@ -35,7 +30,7 @@ class IndexView(View):
      
 class BlogDetailView(View):
     def get(self, request, slug):
-        if request.session.get('user'):
+        if request.user.is_authenticated:
             blog = Blog.objects.get(slug=slug)
             if request.user.is_authenticated==False:
                 blog.views += 1
@@ -53,7 +48,6 @@ class BlogDetailView(View):
             }
         
             if request.session.test_cookie_worked():
-                print("Test cookie also worked")
                 request.session.delete_test_cookie()
         else:
             return redirect('signin')
