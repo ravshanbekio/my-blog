@@ -2,6 +2,10 @@
 {% load static %}
 {% load i18n %}
 
+{% block title %}
+<title>RavshanEnergy - Home Page</title>
+{% endblock title %}
+
 {% block meta %}
 <meta name="description" content="Tips, instructions and video tutorials for dreamers">
 <meta name="author" content="Ravshanbek Madaminov">
@@ -11,79 +15,175 @@
 {% block content %}
 
 {% include 'navbar.html' %}
-    
-<!-- Begin Site Title
-================================================== -->
-<div class="container">
-	<div class="mainheading">
-		<h1 class="sitetitle">Ravshanbek's Blog</h1>
-		<p class="lead">
-			{% blocktrans %}Tips, instructions and video tutorials for dreamers{% endblocktrans %}
-		</p>
-	</div>
-<!-- End Site Title
-================================================== -->
 
-	<!-- Begin List Posts
-	================================================== -->
-	<section class="recent-posts">
-		<div class="section-title">
-			<h2><span>{% blocktrans %}All Stories{% endblocktrans %}</span></h2>
-		</div>
-		<div class="card-columns listrecent">
-			{% for blog in blogs %}
-				<!-- begin post -->
-				<div class="card">
-					<a href="{% url 'blog:blog-detail' blog.slug %}">
-						<img class="img-fluid" src="{{ blog.preview_image.url }}" alt="">
-					</a>
-					<div class="card-block">
-						<h2 class="card-title"><a href="{% url 'blog:blog-detail' blog.slug %}">{{ blog.title }}</a></h2>
-						<h4 class="card-text">{{ blog.subtitle }}</h4>
-						<div class="metafooter">
-							<div class="wrapfooter">
-								<span class="meta-footer-thumb">
-								</span>
-								<span class="author-meta">
-								<span class="post-date">{{ blog.added_date }}</span><span class="dot"></span><span class="post-read">{{ blog.estimated_read_time }} min read</span>
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- end post -->
-			{% endfor %}
+<section id="home" class="bg-primary py-8 py-lg-10">
+    <div class="container my-8 my-lg-10">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center text-white">
 
-		</div>
-	</section>
-	<!-- End List Posts
-	================================================== -->
+          <img src="{% static 'demo/images/logo.png' %}" alt="" class="mb-7">
+          <h2 class="h5 text-white mb-7">Blogs, projects and courses for dreamers</h2>
+          <!-- <a href="https://themeforest.net/user/erilisdesign/portfolio" rel="nofollow noopener" class="btn btn-white mb-3 mb-sm-0 mr-md-3 d-block d-sm-inline-block">Buy on Themeforest.net</a> -->
+          <a href="about-me.html" class="btn btn-soft-white d-block d-sm-inline-block scrollto">About me</a>
 
-	<nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center">
+        </div>
+      </div>
+    </div>
+    <div class="shape-advanced shape-bottom">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 20" class="fill-white" preserveAspectRatio="none">
+        <path d="M 0 0 C 200 20 400 18 500 18 C 600 18 800 20 1000 0 L 1000 20 L 0 20 L 0 0 Z"/>
+      </svg>
+    </div>
+  </section>
 
-				{% if blogs.has_previous %}
-					<li><a href="?page={{blogs.previous_page_number}}" class="btn page-link"
-							data-page="{{blogs.previous_page_number}}">&#10094; {% blocktrans %}Prev{% endblocktrans %}</a></li>
-				{% endif %}
+  <section id="slide-demo" class="pt-8 pt-xl-10 pb-0">
+    <div class="container">
+      <h2 class="text-center mb-7">{% blocktrans %}Blogs{% endblocktrans %}</h2>
+      <div class="row m-n4">
+        {% for blog in blogs %}
+            <div class="col-12 col-sm-6 col-lg-4 p-4">
+                <a class="card" href="{% url 'blog:blog-detail' blog.slug %}">
+                    <img class="card-img-top" src="{{ blog.preview_image.url }}" alt="Unsupported image">
+                    <div class="card-body text-center text-body">
+                    <p>{{ blog.title }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
 
+  <section id="onepage-demo" class="pt-8 pt-xl-10 pb-0">
+    <div class="container">
+      <h2 class="text-center mb-7">Projects</h2>
+      <div class="row m-n4">
+        <div class="col-12 col-sm-6 col-lg-4 p-4">
+          <a class="card" href="onepage-fullscreen.html">
+            <img class="card-img-top" src="demo/screen/onepage-fullscreen.jpg" alt="">
+            <div class="card-body text-center text-body">
+              <p>Fullscreen</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-4">
+          <a class="card" href="onepage-typed-text.html">
+            <img class="card-img-top" src="demo/screen/onepage-typed-text.jpg" alt="">
+            <div class="card-body text-center text-body">
+              <p>Typed Text</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-4">
+          <a class="card" href="onepage-color-background.html">
+            <img class="card-img-top" src="demo/screen/onepage-color-background.jpg" alt="">
+            <div class="card-body text-center text-body">
+              <p>Color Background</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-4">
+          <a class="card" href="onepage-image-background.html">
+            <img class="card-img-top" src="demo/screen/onepage-image-background.jpg" alt="">
+            <div class="card-body text-center text-body">
+              <p>Image Background</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-4">
+          <a class="card" href="onepage-image-color-background.html">
+            <img class="card-img-top" src="demo/screen/onepage-image-color-background.jpg" alt="">
+            <div class="card-body text-center text-body">
+              <p>Image and Color Background</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-4">
+          <a class="card" href="onepage-video-background.html">
+            <img class="card-img-top" src="demo/screen/onepage-video-background.jpg" alt="">
+            <div class="card-body text-center text-body">
+              <p>Video Background</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-4">
+          <a class="card" href="onepage-wide-image-color-background.html">
+            <img class="card-img-top" src="demo/screen/onepage-wide-image-color-background.jpg" alt="">
+            <div class="card-body text-center text-body">
+              <p>Wide Layout - Image and Color Background</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-				{% for page in custom_range %}
+  <section id="other" class="pt-8 pt-xl-10 pb-0">
+    <div class="container">
+      <h2 class="text-center mb-7">Courses</h2>
+      <div class="row m-n4">
+        <div class="col-12 col-sm-6 col-lg-4 p-4">
+          <a class="card" href="multipage-basic.html">
+            <img class="card-img-top" src="demo/screen/multipage-basic.jpg" alt="">
+            <div class="card-body text-center text-body">
+              <p>Multipage - Basic</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-4">
+          <a class="card" href="multipage-typed-text.html">
+            <img class="card-img-top" src="demo/screen/multipage-typed-text.jpg" alt="">
+            <div class="card-body text-center text-body">
+              <p>Multipage - Typed Text</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-4">
+          <a class="card" href="multipage-wide-layout.html">
+            <img class="card-img-top" src="demo/screen/multipage-wide-layout.jpg" alt="">
+            <div class="card-body text-center text-body">
+              <p>Multipage - Wide Layout</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-4">
+          <a class="card" href="terms.html">
+            <img class="card-img-top" src="demo/screen/terms.jpg" alt="">
+            <div class="card-body text-center text-body">
+              <p>Terms of Service</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-4">
+          <a class="card" href="coming-soon-1.html">
+            <img class="card-img-top" src="demo/screen/coming-soon-1.jpg" alt="">
+            <div class="card-body text-center text-body">
+              <p>Coming Soon 1</p>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 p-4">
+          <a class="card" href="coming-soon-2.html">
+            <img class="card-img-top" src="demo/screen/coming-soon-2.jpg" alt="">
+            <div class="card-body text-center text-body">
+              <p>Coming Soon 2</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-					{% if page == blogs.number%}
-					<li><a href="?page={{page}}" class="btn page-link btn--sub" data-page="{{page}}">{{page}}</a></li>
-					{% else %}
-					<li><a href="?page={{page}}" class="btn page-link" data-page="{{page}}">{{page}}</a></li>
-					{% endif %}
-				{% endfor %}
-
-				{% if blogs.has_next %}
-					<li><a href="?page={{blogs.next_page_number}}" class="btn page-link"
-							data-page="{{blogs.next_page_number}}">{% blocktrans %}Next{% endblocktrans %} &#10095;</a></li>
-				{% endif %}
-
-			</ul>
-	</nav>
-	
+  <section class="pt-8 pt-xl-10 pb-0">
+    <div class="container mb-n8 mb-xl-n10">
+      <div class="bg-primary rounded px-7 py-8 py-xl-10 text-white text-center">
+        <div class="w-lg-75 w-xl-50 mx-auto">
+          <h2 class="mb-5">Start with our services</h2>
+          <p class="lead mb-7">A beautiful and easy to use HTML personal template that lets you create the perfect website.</p>
+          <a href="#" rel="nofollow noopener" class="btn btn-white mr-md-3">Contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
 {% endblock content %}

@@ -48,3 +48,10 @@ class CourseMaterialsView(View):
             'next_materials':next_materials
         }
         return render(request, 'academy/course-materials.html', context)
+    
+class MarkGraduatesView(View):
+    def get(self, request, course_slug):
+        course = Course.objects.get(slug=course_slug)
+        course.graduates.add(request.user)  
+        course.save()
+        return redirect('academy:dashboard')

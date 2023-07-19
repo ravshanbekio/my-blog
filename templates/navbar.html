@@ -1,53 +1,59 @@
 {% load i18n %}
 {% load static %}
-<!-- Begin Nav
-================================================== -->
-<nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+<!-- Site navigation -->
+<nav id="siteNavbar" class="site-navbar site-navbar-transparent navbar navbar-expand-lg navbar-dark fixed-top bg-white shadow-light px-lg-4" data-navbar-base="navbar-dark" data-navbar-toggled="navbar-light" data-navbar-scrolled="navbar-light">
+
+    <!-- Brand -->
+    <a class="navbar-brand" href="{% url 'blog:index' %}">
+      <img src="assets/images/logo-white.png" class="navbar-brand-img navbar-brand-img-light" alt="">
+      <img src="assets/images/logo-dark.png" class="navbar-brand-img navbar-brand-img-dark" alt="">
+    </a>
+
+    <!-- Toggler -->
+    <button class="navbar-toggler-alternative" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-alternative-icon">
+        <span></span>
+      </span>
     </button>
-    <div class="container">
-        <!-- Begin Logo -->
-        <a class="navbar-brand" href="{% url 'blog:index' %}">
-        </a>
-        <!-- End Logo -->
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <!-- Begin Menu -->
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                <a class="nav-link" href="{% url 'blog:index' %}">{% blocktrans %}Stories{% endblocktrans %}</a>
-                </li>
-                <li class="nav-item active">
-                <a class="nav-link" href="{% url 'academy:dashboard' %}">{% blocktrans %}Academy{% endblocktrans %}</a>
-                </li>
-                <li class="nav-item active">
-                <a class="nav-link" href="{% url 'portfolio:dashboard' %}">{% blocktrans %}Portfolio{% endblocktrans %}</a>
-                </li>
-            </ul>
-            <!-- End Menu -->
-            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
-                <input type="hidden" name="next" value="{{ redirect_to }}">
-                <select name="language">
-                    {% get_current_language as LANGUAGE_CODE %}
-                    {% get_available_languages as LANGUAGES %}
-                    {% get_language_info_list for LANGUAGES as languages %}
-                    {% for language in languages %}
-                        <option value="{{ language.code }}"{% if languange.code == LANGUAGE_CODE %} selected {% endif %}>
-                            {{ language.name_local }} {{ language.code }}
-                        </option>
-                    {% endfor %}
-                </select>
-                <input type="submit" class="btn btn-primary" value={% blocktrans %}"Go"{% endblocktrans %}>
-            </form>
-            <!-- Begin Search -->
-            <form class="form-inline my-2 my-lg-0" action="{% url 'blog:index' %}">
-                <input class="form-control mr-sm-2" type="text" name="search_query" placeholder="Search">
-                <span class="search-icon"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M20.067 18.933l-4.157-4.157a6 6 0 1 0-.884.884l4.157 4.157a.624.624 0 1 0 .884-.884zM6.5 11c0-2.62 2.13-4.75 4.75-4.75S16 8.38 16 11s-2.13 4.75-4.75 4.75S6.5 13.62 6.5 11z"></path></svg></span>
-            </form>
-            <!-- End Search -->
-        </div>
+
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+
+      <!-- Navigation -->
+      <ul class="navbar-nav ml-auto" id="navigation">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blog:index' %}" role="button" aria-haspopup="true" aria-expanded="false">
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'portfolio:dashboard' %}" role="button" aria-haspopup="true" aria-expanded="false">
+            Portfolio
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'academy:dashboard' %}" role="button" aria-haspopup="true" aria-expanded="false">
+            Academy
+          </a>
+        </li>
+      </ul>
+
+      <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+        <input type="hidden" name="next" value="{{ redirect_to }}">
+        <select name="language">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+                <option value="{{ language.code }}"{% if languange.code == LANGUAGE_CODE %} selected {% endif %}>
+                    {{ language.name_local }} {{ language.code }}
+                </option>
+            {% endfor %}
+        </select>
+        <input type="submit" class="btn btn-primary" value={% blocktrans %}"Go"{% endblocktrans %}>
+    </form>
+
     </div>
-</nav>
-    <!-- End Nav
-    ================================================== -->
-    
+  </nav>
+
+  

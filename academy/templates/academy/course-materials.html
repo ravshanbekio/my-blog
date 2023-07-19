@@ -2,7 +2,9 @@
 
 {% include 'navbar.html' %}
 {% block title %}
-<title>Course Materials - </title>
+{% for material in materials %}
+<title>{{ material.title }}</title>
+{% endfor %}
 {% endblock title %}
 
 {% block content %}
@@ -18,11 +20,11 @@
         </video>
         <h2>{{ material.title }}</h2>
         <p>{{ material.text|safe }}</p>
+        {% if next_materials %}
+            <a href="{% url 'academy:learn-course' next_materials.playlist.slug next_materials.random_number %}">{{ next_materials.title }}</a>
+        {% else %}
+            <a href="{% url 'academy:mark-graduates' material.playlist.slug %}" class="btn btn-primary" >End Course</a>
+        {% endif %}
     {% endfor %}
-    {% if next_materials %}
-        <a href="{% url 'academy:learn-course' next_materials.playlist.slug next_materials.random_number %}">{{ next_materials.title }}</a>
-    {% else %}
-        <button class="btn btn-primary" >End Course</button>
-    {% endif %}
 </center>
 {% endblock content %}

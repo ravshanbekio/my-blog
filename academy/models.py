@@ -14,6 +14,7 @@ class Course(models.Model):
     about_course = models.TextField(max_length=800)
     photo = CloudinaryField()
     students = models.ManyToManyField(User, blank=True)
+    graduates = models.ManyToManyField(User, blank=True, related_name='graduates')
     slug = models.SlugField(max_length=100, blank=True)
 
     class Meta:
