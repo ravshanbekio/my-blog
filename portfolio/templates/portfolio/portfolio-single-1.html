@@ -1,0 +1,74 @@
+﻿{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+<title>{{ project.name }}</title>
+{% endblock title %}
+
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<!-- Button - Back to top -->
+    <a href="#" class="btn-back-to-top scrollto btn btn-icon btn-primary shadow-light mb-4 mr-4" tabindex="-1">
+      <i class="fas fa-chevron-up btn-icon-inner"></i>
+    </a>
+
+    <section class="bg-primary py-9 py-lg-10">
+      <div class="container my-9 my-lg-10">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center text-white">
+
+            <h2 class="h1 mb-0">{{ project.name }}</h2>
+
+          </div>
+        </div>
+      </div>
+      <div class="shape-advanced shape-bottom">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 20" class="fill-white" preserveAspectRatio="none">
+          <path d="M 0 0 C 200 20 400 18 500 18 C 600 18 800 20 1000 0 L 1000 20 L 0 20 L 0 0 Z"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Website Content -->
+    <div class="website-content mt-n8 mt-lg-n10">
+      <div class="website-content-inner pb-8 pb-lg-10">
+        <div class="website-content-box">
+          <div class="website-content-box-inner py-6 py-lg-8 py-xl-10">
+            <div class="container-fluid px-6 px-lg-8 px-xl-10">
+
+              <div class="row mb-6 mb-lg-8">
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                  <h5>About the project</h5>
+                  <p>{{ project.about_project }}</p>
+                </div>
+                <div class="col-lg-4 text-left text-lg-right">
+                  <ul class="list-unstyled mb-0">  
+                    <li>{{ project.added_date }}</li>
+                    <li><a href="#" rel="tag" class="text-dark">{{ project.category.category_name }}</a></li>
+                    <li>{{ project.views }} Views</li>
+                    <!-- <li><a href="#" class="text-dark">147 Likes</a></li> -->
+                  </ul>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-9 mx-auto text-center">
+
+                  <h3 class="mb-7">Start a project. Get in touch</h3>
+                  <a href="https://t.me/rmdeveloper" class="btn btn-primary px-6">Hire Me</a>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}

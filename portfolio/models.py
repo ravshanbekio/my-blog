@@ -1,13 +1,22 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
+from ckeditor.fields import RichTextField
 import datetime
+
+class Category(models.Model):
+    category_name = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.category_name
 
 class Project(models.Model):
     name = models.CharField(max_length=200)
-    about_project = models.TextField()
+    about_project = RichTextField()
     link = models.URLField()
     preview_photo = CloudinaryField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     views = models.IntegerField(default=0)
+    added_date = models.DateField(auto_now_add=True)
 
     class Meta:
         verbose_name_plural = "Projects"

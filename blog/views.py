@@ -1,23 +1,16 @@
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .models import Blog, Category
-from .utils import searchBlogs, paginateBlogs
+from .models import Blog, Comment
 from .tasks import add_like_to_blog_task
+from .forms import CommentForm
 
 class IndexView(View):
     def get(self, request):
         if request.user.is_authenticated:
-            blogs, search_query = searchBlogs(request)
-            categories_query = Category.objects.select_related()
-            # paginate blogs
-            custom_range, blogs = paginateBlogs(request, blogs, 12)
-            
+            blogs = Blog.objects.select_related()[:12]
             context = {
-                'categories':categories_query,
                 'blogs':blogs,
-                'search_query':search_query,
-                'custom_range':custom_range,
             }
         else:
             return redirect('signin')
@@ -32,26 +25,27 @@ class BlogDetailView(View):
     def get(self, request, slug):
         if request.user.is_authenticated:
             blog = Blog.objects.get(slug=slug)
-            if request.user.is_authenticated==False:
-                blog.views += 1
-                blog.save()
-            else:
-                pass
-            blogs = Blog.objects.filter(category__name=blog.category.first()).exclude(slug=blog.slug)[:3]
+            comments = Comment.objects.filter(blog=blog)
+            blog.views += 1
+            blog.save()
+            #blogs = Blog.objects.filter(category__name=blog.category.first()).exclude(slug=blog.slug)[:3]
             
+            form = CommentForm
+
             context = {
                 'blog':blog,
+                'comments':comments,
                 'number_of_likes':blog.number_of_likes,
-                'blogs':blogs,
                 'likes_number':blog.likes.count(),
-                'likes':blog.likes
+                'likes':blog.likes,
+                'form':form
             }
         
             if request.session.test_cookie_worked():
                 request.session.delete_test_cookie()
         else:
             return redirect('signin')
-        return render(request, 'blog/post.html', context)
+        return render(request, 'blog/blog-single.html', context)
 
     def post(self, request, slug):
         add_like_to_blog_task.delay(
@@ -59,3 +53,12 @@ class BlogDetailView(View):
         )
         
         return redirect('blog:blog-detail',slug=slug)
+    
+class AddCommentView(View):
+    def post(self, request, slug):
+        form = CommentForm(request.POST or None)
+        if form.is_valid():
+            form.blog = Blog.objects.get(slug=slug)
+            form.user = request.user
+            form.save()
+            return redirect('blog:blog-detail',slug=slug)

@@ -1,0 +1,100 @@
+﻿{% extends 'base.html' %}
+{% load i18n %}
+{% load social_share %}
+
+{% block title %}
+<title>{{ blog.title }}</title>
+{% endblock title %}
+
+{% block meta %}
+<meta name="description" content="{{ blog.meta_description }}">
+<meta name="author" content="Ravshanbek Madaminov">
+<meta name="keywords" content="{{ blog.meta_keyword }}">
+{% endblock meta %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+
+<!-- Button - Back to top -->
+    <a href="#" class="btn-back-to-top scrollto btn btn-icon btn-primary shadow-light mb-4 mr-4" tabindex="-1">
+      <i class="fas fa-chevron-up btn-icon-inner"></i>
+    </a>
+
+    <section class="bg-primary py-9 py-lg-10">
+      <div class="container my-9 my-lg-10">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center text-white">
+
+            <h2 class="h1">{{ blog.title }}</h2>
+            <p>{{ blog.added_date|date:"c" }} - {{ blog.estimated_read_time }} {% if blog.estimated_read_time > 1 %} minutes {% else %} minute {% endif %} read</p>
+
+          </div>
+        </div>
+      </div>
+      <div class="shape-advanced shape-bottom">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 20" class="fill-white" preserveAspectRatio="none">
+          <path d="M 0 0 C 200 20 400 18 500 18 C 600 18 800 20 1000 0 L 1000 20 L 0 20 L 0 0 Z"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Website Content -->
+    <div class="website-content mt-n8 mt-lg-n10">
+      <div class="website-content-inner pb-8 pb-lg-10">
+        <div class="website-content-box">
+          <div class="website-content-box-inner py-6 py-lg-8 py-xl-10">
+            <div class="container-fluid px-6 px-lg-8 px-xl-10">
+
+              <article class="article">
+                <p>{{ blog.body|safe }}</p>
+              </article>
+
+              <hr class="my-7"/>
+
+              <h4 class="mb-7">Comments</h4>
+              <ul class="article-comments">
+                {% for comment in comments %}
+                  <li>
+
+                    <div class="d-flex align-items-center mb-2">
+                      <div class="avatar mr-4">
+                        <img src="assets/images/avatars/avatar-2.jpg" alt="" class="avatar-img">
+                      </div>
+                      <div>
+                        <b class="fn">{% if comment.user.first_name %} {{ comment.user.first_name }} {{ comment.user.last_name }} {% else %} {{ comment.user.username }} {% endif %}</b>
+                        <div class="small text-muted">{{ comment.added_date }}</div>
+                      </div>
+                    </div>
+                    <p>{{ comment.comment }}</p>
+                    <!-- <a href="#">Reply</a> -->
+
+                  
+                  </li>
+                {% endfor %}
+              </ul>
+
+              <hr class="my-7"/>
+
+              <h4 class="mb-5">Add comment</h4>
+              {% if request.user.is_authenticated %}
+                <form action="{% url 'blog:add-comment' blog.slug %}" method="post">
+                  {% csrf_token %}
+                  <div class="form-row">
+                    <div class="col-12 form-group">
+                      {{ form.as_p }}
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary" id="submit" name="submit">Submit</button>
+                </form>
+              {% else %}
+                <p>You can't add comments because of permissions</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}

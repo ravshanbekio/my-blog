@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 from cloudinary import CloudinaryImage
 from .signals import add_gpt_response
-import re
+
 
 class Category(models.Model):
     name = models.CharField(max_length=25)
@@ -47,6 +47,18 @@ class Blog(models.Model):
     
     def number_of_likes(self):
         return self.likes.count()
+    
+class Comment(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField(max_length=200)
+    added_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Comments"
+
+    def __str__(self):
+        return self.user.username
     
 @receiver(post_save, sender=Category)
 def post_save_category(instance, *args, **kwargs):
