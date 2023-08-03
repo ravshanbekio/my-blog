@@ -7,5 +7,5 @@ app_name = 'blog'
 urlpatterns = [
     path('',IndexView.as_view(), name='index'),
     path('blog/<slug:slug>/',BlogDetailView.as_view(), name='blog-detail'),
-    path('blog/<slug:slug>/',AddCommentView.as_view(), name='add-comment'),
+    path('blog/<slug:slug>/add-comment',AddCommentView.as_view(), name='add-comment'),
 ]

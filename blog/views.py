@@ -56,9 +56,10 @@ class BlogDetailView(View):
     
 class AddCommentView(View):
     def post(self, request, slug):
-        form = CommentForm(request.POST or None)
+        form = CommentForm(request.POST)
         if form.is_valid():
-            form.blog = Blog.objects.get(slug=slug)
-            form.user = request.user
-            form.save()
+            data = form.save(commit=False)
+            data.blog = Blog.objects.get(slug=slug)
+            data.user = request.user
+            data.save()
             return redirect('blog:blog-detail',slug=slug)
