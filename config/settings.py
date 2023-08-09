@@ -38,7 +38,7 @@ SECRET_KEY = "django-insecure-exu!5"
 # DEBUG = env.bool("DEBUG", default=False)
 DEBUG = True
 
-ALLOWED_HOSTS = ["www.ravshanenergy.uz","my-blog-production-3192.up.railway.app","ravshanenergy.uz","127.0.0.1"]
+ALLOWED_HOSTS = ["www.ravshanenergy.uz","my-blog-production-3192.up.railway.app","ravshanenergy.uz","127.0.0.1"] 
 
 
 # Application definition
