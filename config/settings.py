@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'portfolio.apps.PortfolioConfig',
     'profile.apps.ProfileConfig',
+    'tools.apps.ToolsConfig',
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -178,7 +179,6 @@ USE_TZ = True
 
 LANGUAGES = [
     ('en',_("English")),
-    ('uz',_("Uzbek")),
     ('ru',_("Russian"))
 ]
 

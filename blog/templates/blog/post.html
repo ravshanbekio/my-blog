@@ -41,7 +41,7 @@
 				<ul>
 					{% if user.is_authenticated %}
 						<li>
-							<form action="{% url 'blog:blog-detail' blog.slug %}" method="POST">{% csrf_token %}
+							<form action="{% url 'blog:blog-detail' blog.slug %}" method="GET">{% csrf_token %}
 								{% if likes %}
 									<button type="submit" name="blogpost_id" value="{{ blog.id }}" class="btn btn-secondary">
 										<i class="fas fa-thumbs-up"></i>
