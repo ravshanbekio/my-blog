@@ -68,7 +68,6 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'portfolio.apps.PortfolioConfig',
     'profile.apps.ProfileConfig',
-    'tools.apps.ToolsConfig',
 ]
 
 AUTHENTICATION_BACKENDS = [
